@@ -4,19 +4,21 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "0 8 * * 6"
-  
+    
+permissions:
+      contents: read
+      pull-requests: write
+      id-token: write
+      issues: write
+
 jobs:
-  build:
-    permissions:
-      contents: 'read'
-      id-token: 'write'
-      issues: 'write' #fix the HttpError: Resource not accessible by integration
-      
+  build:  
     runs-on: ubuntu-latest
     steps:
       - name: Sync
         uses: joshcai/leetcode-sync@v1.5
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ github.token }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
           leetcode-csrf-token: ${{ secrets.LEETCODE_CSRF_TOKEN }}
           leetcode-session: ${{ secrets.LEETCODE_SESSION }}
