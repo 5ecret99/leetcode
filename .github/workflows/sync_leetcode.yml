@@ -5,6 +5,11 @@ on:
   schedule:
     - cron: "0 8 * * 6"
 
+permissions:
+  contents: 'read'
+  id-token: 'write'
+  issues: 'write' #fix the HttpError: Resource not accessible by integration
+  
 jobs:
   build:
     runs-on: ubuntu-latest
