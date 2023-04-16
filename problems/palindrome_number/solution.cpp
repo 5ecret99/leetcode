@@ -4,6 +4,9 @@ public:
         if (x < 0){
             return false;
         }
+        else if (x < 10){
+            return true;
+        }
 
         long reverse_x = 0;
         int temp_x = x;
