@@ -12,7 +12,7 @@ bool is_palindrome(string::iterator left, string::iterator right)
     return true;
 }
 
-void particion(const string& s, string::iterator start)
+void partition(const string& s, string::iterator start)
 {
     if(start == s.end())
     {
@@ -24,7 +24,7 @@ void particion(const string& s, string::iterator start)
         if(is_palindrome(start, it))
         {
             curr_part.push_back(string(start, it + 1));
-            particion(s, it + 1);
+            partition(s, it + 1);
             curr_part.pop_back();
         }
 }
@@ -32,7 +32,7 @@ void particion(const string& s, string::iterator start)
 public:
     vector<vector<string>> partition(string s) 
     {
-        particion(s, s.begin());
+        partition(s, s.begin());
         return particions;
     }
 };
