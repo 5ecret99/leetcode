@@ -1,24 +1,28 @@
 class Solution {
 private:
-    unordered_map<int, vector<int>> mp;
-    unordered_set<int> visited;
-    bool dfs(int node, int parent = -1){
-        if(visited.contains(node)) return true;
-        visited.insert(node);
-        for(auto curr_node : mp[node])
-            if(curr_node != parent && dfs(curr_node, node))
-                return true;
+    vector<int> parents{[]{
+        int max_edges{10001};
+        vector<int> vec(max_edges);
+        for(int i = 1; i < max_edges; ++i) vec[i] = i;
+        return vec;
+    }()};
 
-        return false;
+    int find_parent(int node){
+        return parents[node] == node ? parents[node] : find_parent(parents[node]);
     }
+
+    bool node_union(int node1, int node2){
+        node1 = find_parent(node1);
+        node2 = find_parent(node2);
+        if(node1 == node2) return false;
+        parents[node2] = node1;
+        return true;
+    }
+    
 public:
     vector<int> findRedundantConnection(vector<vector<int>>& edges) {
-        for(const auto& edge: edges){
-            mp[edge[0]].push_back(edge[1]);
-            mp[edge[1]].push_back(edge[0]);
-            if(dfs(edge[0])) return edge;
-            visited.clear();
-        }
+        for(const auto& nodes : edges)
+            if(!node_union(nodes[0], nodes[1])) return nodes;
         
         return {};
     }
