@@ -1,7 +1,13 @@
 class Solution {
 public:
-    int getSum(unsigned int a, unsigned int b) {
-        if(!b) return a;
-        return getSum(a ^ b, (a & b) << 1);
+    int getSum(int a, int b) {
+        while(b)
+        {
+            auto tmp{a};
+            a^= b;
+            b = (b & tmp) << 1;
+        }
+        
+        return a;
     }
 };
