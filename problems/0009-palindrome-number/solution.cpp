@@ -1,20 +1,17 @@
 class Solution {
 public:
-    bool isPalindrome(int x) {
-        if (x < 0){
-            return false;
+    bool isPalindrome(int x) 
+    {
+        int rx = 0;
+        int tmp = x; 
+        while(tmp > 0)
+        {
+            if(rx > INT_MAX / 10)
+                return false;
+            rx = rx * 10 + tmp % 10;
+            tmp/= 10;
         }
-        else if (x < 10){
-            return true;
-        }
-
-        long reverse_x = 0;
-        int temp_x = x;
-        while(temp_x){
-            reverse_x = 10 * reverse_x + temp_x % 10;
-            temp_x/= 10;
-        }
-
-        return reverse_x == x;
+        
+        return x == rx;
     }
 };
