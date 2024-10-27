@@ -9,7 +9,7 @@ public:
             stack.push_back({val, val});
         }
         else{
-            stack.push_back({val, min(this->getMin(), val)});
+            stack.emplace_back(val, min(getMin(), val));
         }
     }
     
