@@ -24,8 +24,12 @@ class Solution {
 
 public:
     Node* cloneGraph(Node* node) {
-        if(!node) return nullptr;
-        if(map.find(node) != map.end()) return map[node];
+        if(!node) 
+            return nullptr;
+            
+        if(map.contains(node)) 
+            return map[node];
+
         Node* cloned_node = new Node(node->val);
         map[node] = cloned_node;
         for(auto neighbor : node->neighbors)
