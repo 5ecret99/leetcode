@@ -19,32 +19,47 @@
 class NestedIterator 
 {
 private:
-    vector<int> nums;
-    vector<int>::iterator it;
+    stack<vector<NestedInteger>::iterator> begins; 
+    stack<vector<NestedInteger>::iterator> ends; 
 public:
     NestedIterator(vector<NestedInteger> &nestedList) 
     {
-        nested_int(nestedList);
-        it = nums.begin();
+        add_nested(nestedList);
     }
-    void nested_int(vector<NestedInteger> &nestedList)
+
+    void add_nested(vector<NestedInteger> &nestedList) 
     {
-        for(auto el : nestedList)
-            if(el.isInteger())
-                nums.push_back(el.getInteger());
-            else
-                nested_int(el.getList());
+        begins.push(nestedList.begin());
+        ends.push(nestedList.end());
     }
-    
+
     int next() 
     {
-        ++it;
-        return *(it - 1);    
+        hasNext();
+        return (begins.top()++)->getInteger();
     }
     
     bool hasNext() 
     {
-        return it != nums.end();    
+        while(!begins.empty())
+        {
+            if(begins.top() == ends.top())
+            {
+                begins.pop();
+                ends.pop();
+            }
+            else
+            {
+                auto tmp = begins.top();
+                if(tmp->isInteger())
+                    return true;
+                
+                begins.top()++;
+                add_nested(tmp->getList());
+            }
+        }
+
+        return false;
     }
 };
 
