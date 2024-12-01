@@ -7,15 +7,19 @@ public:
     
     bool insert(int val) 
     {
-       if(set_.contains(val)) return false;
-       set_.insert(val);
-       return true; 
+        if(set_.contains(val)) 
+            return false;
+        
+        set_.insert(val);
+        return true; 
     }
     
     bool remove(int val) 
     {
         auto it = set_.find(val);
-        if(it == set_.end()) return false;
+        if(it == set_.end()) 
+            return false;
+        
         set_.erase(it);
         return true;
     }
