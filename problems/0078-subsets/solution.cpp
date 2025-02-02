@@ -2,8 +2,7 @@ class Solution {
 public:
     vector<vector<int>> subsets(vector<int>& nums) 
     {
-        vector<vector<int>> res;
-        res.push_back({});
+        vector<vector<int>> res{{}};  
         for(auto num : nums)
         {
             int n = res.size();
@@ -12,8 +11,8 @@ public:
                 res.push_back(res[i]);
                 res.back().push_back(num);
             }
-        } 
-        
+        }
+
         return res;
     }
 };
